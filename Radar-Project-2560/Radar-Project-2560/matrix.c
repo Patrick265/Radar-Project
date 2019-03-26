@@ -9,23 +9,23 @@
 ** Target:			AVR mcu
 ** Build:			avr-gcc -std=c99 -Wall -O3 -mmcu=atmega128 -D F_CPU=8000000UL -c ledmatrix.c
 **					avr-gcc -g -mmcu=atmega128 -o ledmatrix.elf ledmatrix.o
-**					avr-objcopy -O ihex ledmatrix.elf ledmatrix.hex 
+**					avr-objcopy -O ihex ledmatrix.elf ledmatrix.hex
 **					or type 'make'
 ** Author: 			dkroeske@gmail.com
 ** -------------------------------------------------------------------------*/
 
-#define F_CPU 20000000UL 
+#define F_CPU 20000000UL
 #include <avr/io.h>
 #include <util/delay.h>
-#include "Dependency/util.h"
+#include "util.h"
 int posArray[] = {1, 3, 7, 15, 31, 63, 127, 255};
 
 /******************************************************************/
 void twi_init(void)
-/* 
+/*
 short:			Init AVR TWI interface and set bitrate
-inputs:			
-outputs:	
+inputs:
+outputs:
 notes:			TWI clock is set to 100 kHz
 Version :    	DMK, Initial code
 *******************************************************************/
@@ -36,11 +36,11 @@ Version :    	DMK, Initial code
 
 /******************************************************************/
 void twi_start(void)
-/* 
+/*
 short:			Generate TWI start condition
-inputs:		
-outputs:	
-notes:			
+inputs:
+outputs:
+notes:
 Version :    	DMK, Initial code
 *******************************************************************/
 {
@@ -50,11 +50,11 @@ Version :    	DMK, Initial code
 
 /******************************************************************/
 void twi_stop(void)
-/* 
+/*
 short:			Generate TWI stop condition
-inputs:		
-outputs:	
-notes:			
+inputs:
+outputs:
+notes:
 Version :    	DMK, Initial code
 *******************************************************************/
 {
@@ -63,11 +63,11 @@ Version :    	DMK, Initial code
 
 /******************************************************************/
 void twi_tx(unsigned char data)
-/* 
+/*
 short:			transmit 8 bits data
-inputs:		
-outputs:	
-notes:			
+inputs:
+outputs:
+notes:
 Version :    	DMK, Initial code
 *******************************************************************/
 {
@@ -87,12 +87,12 @@ void fill(void)
 		int z;
 		for(z = 0; z < 8; z++)
 		{
-					twi_start();
-					twi_tx(0xE0);	// Display I2C addres + R/W bit
-					twi_tx(posArray[i]);	// Address
-					twi_tx(posArray[z]);	// data
-					twi_stop();
-					wait(500);
+			twi_start();
+			twi_tx(0xE0);	// Display I2C addres + R/W bit
+			twi_tx(posArray[i]);	// Address
+			twi_tx(0b00000010);	// data
+			twi_stop();
+			wait(500);
 		}
 		
 	}
@@ -101,10 +101,10 @@ void fill(void)
 
 
 int loadMatrix( void )
-/* 
+/*
 short:			main() loop, entry point of executable
-inputs:			
-outputs:	
+inputs:
+outputs:
 notes:			Looping forever, trashing the HT16K33
 Version :    	DMK, Initial code
 *******************************************************************/

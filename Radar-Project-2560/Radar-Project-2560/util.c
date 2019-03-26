@@ -8,7 +8,7 @@
 #define F_CPU 20000000UL
  
 #include <util/delay.h>
-#include "Dependency/util.h"
+#include "util.h"
 
 void wait (int ms)
 {

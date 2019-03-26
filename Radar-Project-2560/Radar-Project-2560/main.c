@@ -5,7 +5,7 @@
  * Author : Patrick
  */ 
 
-#define F_CPU 20000000UL 
+#define F_CPU 16000000UL 
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -23,25 +23,29 @@ int sendBack = 1;
 
 int main(void)
 {
-	loadMatrix();
-	DDRB = 0b00110000;
+	//loadMatrix();
+	DDRB = 0b01000000;
 	EICRA |= (1 << ISC00);    // set INT0 to trigger on ANY logic change
 	EIMSK |= (1 << INT0);     // Turns on INT0
 
 	sei();                    // turn on interrupts
 	//PORTB = 0b00100000;
 	while(1){
-			PORTB |= 0b00010000;
-			_delay_us(15);
-			PORTB &= 0b11101111;
-			distance = (pulse / 58)*2; // Getting the distance in cm
-			if(distance<=12 ){//&& distance <= 10){
-				PORTB |= 0b00100000;
-			}
-			else{
-				
-				PORTB &= 0b11011111;
-			}
+			//PORTB |= 0b00010000;
+			//_delay_us(15);
+			//PORTB &= 0b11101111;
+			//distance = (pulse / 58)*2; // Getting the distance in cm
+			//if(distance<=12 ){//&& distance <= 10){
+				//PORTB |= 0b00100000;
+			//}
+			//else{
+				//
+				//PORTB &= 0b11011111;
+			//}
+			PORTB = 0b01000000;
+			_delay_ms(500);
+			PORTB = 0b00000000;
+			_delay_ms(500);
 	}
 }
 
