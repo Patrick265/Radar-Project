@@ -31,21 +31,21 @@ int main(void)
 	sei();                    // turn on interrupts
 	//PORTB = 0b00100000;
 	while(1){
-			//PORTB |= 0b00010000;
-			//_delay_us(15);
-			//PORTB &= 0b11101111;
-			//distance = (pulse / 58)*2; // Getting the distance in cm
-			//if(distance<=12 ){//&& distance <= 10){
-				//PORTB |= 0b00100000;
-			//}
-			//else{
+			PORTB |= 0b00000001;
+			_delay_us(15);
+			PORTB &= 0b11111110;
+			distance = (pulse / 58)*2; // Getting the distance in cm
+			if(distance<=12 ){//&& distance <= 10){
+				PORTB |= 0b01000000;
+			}
+			else{
 				//
-				//PORTB &= 0b11011111;
-			//}
-			PORTB = 0b01000000;
-			_delay_ms(500);
-			PORTB = 0b00000000;
-			_delay_ms(500);
+				PORTB &= 0b10111111;
+			}
+			//PORTB = 0b01000000;
+			//_delay_ms(500);
+			//PORTB = 0b00000000;
+			//_delay_ms(500);
 	}
 }
 
