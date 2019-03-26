@@ -89,8 +89,8 @@ void fill(void)
 		{
 					twi_start();
 					twi_tx(0xE0);	// Display I2C addres + R/W bit
-					twi_tx(0b11111111);	// Address
-					twi_tx(0b00000100);	// data
+					twi_tx(posArray[i]);	// Address
+					twi_tx(posArray[z]);	// data
 					twi_stop();
 					wait(500);
 		}
