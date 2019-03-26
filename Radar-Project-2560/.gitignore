@@ -8,8 +8,8 @@
 .vs/*
 */*.atsuo
 */*.o
-debug/*
-
+/debug/*
+!/debug/
 # Object files
 *.o
 *.ko
