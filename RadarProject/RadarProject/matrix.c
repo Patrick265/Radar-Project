@@ -14,9 +14,11 @@
 ** Author: 			dkroeske@gmail.com
 ** -------------------------------------------------------------------------*/
 
-
+#define F_CPU 20000000UL 
 #include <avr/io.h>
 #include <util/delay.h>
+#include "Dependency/util.h"
+int posArray[] = {1, 3, 7, 15, 31, 63, 127, 255};
 
 /******************************************************************/
 void twi_init(void)
@@ -75,25 +77,30 @@ Version :    	DMK, Initial code
 }
 
 /******************************************************************/
-void wait( int ms )
-/* 
-short:			Busy wait number of millisecs
-inputs:			int ms (Number of millisecs to busy wait)
-outputs:	
-notes:			Busy wait, not very accurate. Make sure (external)
-				clock value is set. This is used by _delay_ms inside
-				util/delay.h
-Version :    	DMK, Initial code
-*******************************************************************/
+/******************************************************************/
+
+void fill(void)
 {
-	for (int i=0; i<ms; i++)
+	int i;
+	for(i = 0; i < 8; i++)
 	{
-		_delay_ms( 1 );		// library function (max 30 ms at 8MHz)
+		int z;
+		for(z = 0; z < 8; z++)
+		{
+					twi_start();
+					twi_tx(0xE0);	// Display I2C addres + R/W bit
+					twi_tx(0b11111111);	// Address
+					twi_tx(0b00000100);	// data
+					twi_stop();
+					wait(500);
+		}
+		
 	}
+
 }
 
-/******************************************************************/
-int main( void )
+
+int loadMatrix( void )
 /* 
 short:			main() loop, entry point of executable
 inputs:			
@@ -125,24 +132,12 @@ Version :    	DMK, Initial code
 	twi_tx(0xE0);	// Display I2C address + R/W bit
 	twi_tx(0x81);	// Display OFF - Blink On
 	twi_stop();
+	
+	
 
 	while (1)
 	{
-		twi_start();
-		twi_tx(0xE0);	// Display I2C addres + R/W bit
-		twi_tx(0x00);	// Address
-		twi_tx(0x00);	// data
-		twi_stop();
-
-		wait(500);	
-
-		twi_start();
-		twi_tx(0xE0);	// Display I2C addres + R/W bit
-		twi_tx(0x00);	// Address
-		twi_tx(0x01);	// data
-		twi_stop();	
-
-		wait(500);
+		fill();
 	}
 
 	return 1;

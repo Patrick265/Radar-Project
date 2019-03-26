@@ -11,6 +11,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "matrix.h"
 
 int UltrSoneOn = 0;
 int i = 0;
@@ -20,10 +21,9 @@ int sendBack = 1;
 
 
 
-
-
 int main(void)
 {
+	loadMatrix();
 	DDRB = 0b00110000;
 	EICRA |= (1 << ISC00);    // set INT0 to trigger on ANY logic change
 	EIMSK |= (1 << INT0);     // Turns on INT0
