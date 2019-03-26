@@ -6,8 +6,8 @@
 *.d
 
 .vs/*
-*.atsuo
-
+*/*.atsuo
+*/*.o
 
 # Object files
 *.o
