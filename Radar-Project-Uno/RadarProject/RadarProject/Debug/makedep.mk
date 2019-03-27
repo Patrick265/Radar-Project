@@ -6,6 +6,8 @@ main.c
 
 matrix.c
 
+motor.c
+
 ultrasone.c
 
 util.c

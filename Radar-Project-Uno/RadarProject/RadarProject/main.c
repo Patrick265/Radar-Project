@@ -26,12 +26,17 @@ int main(void)
 	twi_init();
 	fill_board();
 	
+	 DDRD = 0b10000000;
 	 DDRB = 0b00110000;
 	 EICRA |= (1 << ISC00);    // set INT0 to trigger on ANY logic change
 	 EIMSK |= (1 << INT0);     // Turns on INT0
 	 
 	 sei();    
-	
+	 int i;
+	for(i=0;i<12;i++){
+		SetStep();
+		_delay_ms(500);
+	}
     /* Replace with your application code */
     while (1) 
     {

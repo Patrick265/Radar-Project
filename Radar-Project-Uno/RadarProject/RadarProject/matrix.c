@@ -74,7 +74,7 @@ void fill_board() {
 	int i;
 	for ( i = 0; i < 8; i++) {
 		fill_column(columns[i], rows[7]);
-		wait(2000);
+		wait(200);
 	}
 }
 
