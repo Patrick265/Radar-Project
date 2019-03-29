@@ -6,6 +6,7 @@
  *  Author: Tom Martens
  */ 
 
+//	Global functions
 void twi_start(void);
 int loadMatrix(void);
 void twi_stop(void);
@@ -15,4 +16,3 @@ void fill_column(int, int);
 void clear_board(void);
 void fill_board(void);
 void twi_init(void);
-

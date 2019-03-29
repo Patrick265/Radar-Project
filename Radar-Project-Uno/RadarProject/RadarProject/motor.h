@@ -5,7 +5,7 @@
  *  Author: timde
  */ 
 
-
+//	Global functions
 int getDirection();
 void SetStep();
 void ChangeDirection();

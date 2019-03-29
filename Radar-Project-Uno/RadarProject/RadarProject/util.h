@@ -9,7 +9,7 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
-
+//	Global functions
 extern void wait(int ms);
 
 
