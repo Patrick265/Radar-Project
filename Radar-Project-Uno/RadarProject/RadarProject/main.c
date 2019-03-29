@@ -101,7 +101,7 @@ int main(void)
 			averageDistance = scanValue/scanTimes;
 			//	Setting the right column of the dot matrix
 			clear_column(MotorIndex);
-			fill_column(MotorIndex, (int)averageDistance/(MAX_COLUMNS/MAX_COLUMNS));
+			fill_column(MotorIndex, (int)averageDistance/3);
 		}
 		else{
 			clear_column(MotorIndex);
