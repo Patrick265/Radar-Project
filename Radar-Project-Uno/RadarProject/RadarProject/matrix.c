@@ -1,3 +1,5 @@
+#define F_CPU 16000000UL
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include "util.h"
@@ -48,7 +50,7 @@ void clear_column(int column)
 {
 	twi_start();
 	twi_tx(0xE0);	// Display I2C addres + R/W bit
-	twi_tx(column);	// Address
+	twi_tx(columns[column]);	// Address
 	twi_tx(0b00000000);	// data
 	twi_stop();
 }
@@ -56,8 +58,8 @@ void clear_column(int column)
 void fill_column(int column , int amount) {
 	twi_start();
 	twi_tx(0xE0);	// Display I2C addres + R/W bit
-	twi_tx(column);	// Address
-	twi_tx(amount);	// data
+	twi_tx(columns[column]);	// Address
+	twi_tx(rows[amount]);	// data
 	twi_stop();
 	
 }
@@ -66,7 +68,7 @@ void clear_board() {
 	int i;
 	for(i =0; i < 8; i++) {
 		clear_column(columns[i]);
-		wait(100);
+		//wait(50);
 	}
 }
 
@@ -74,7 +76,7 @@ void fill_board() {
 	int i;
 	for ( i = 0; i < 8; i++) {
 		fill_column(columns[i], rows[7]);
-		wait(200);
+		wait(500);
 	}
 }
 
