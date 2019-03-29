@@ -25,20 +25,23 @@ int rows[] = {
 0b11111111}; // 8
 
 
-
+/* Start Condition for the 8x8 matrix board
+* So you can send a command
+*/
 void twi_start(void)
 {
 	TWCR = (0x80 | 0x20 | 0x04);
 	while( 0x00 == (TWCR & 0x80) );
 }
 
-
+// Stop condiition
 void twi_stop(void)
 {
 	TWCR = (0x80 | 0x10 | 0x04);
 }
 
 
+// Send command to the matrix board
 void twi_tx(unsigned char data)
 {
 	TWDR = data;
@@ -46,6 +49,7 @@ void twi_tx(unsigned char data)
 	while( 0 == (TWCR & 0x80) );
 }
 
+// Clear a column of the matrix board
 void clear_column(int column)
 {
 	twi_start();
@@ -55,6 +59,7 @@ void clear_column(int column)
 	twi_stop();
 }
 
+// Fill a collumn on the matrix board with a certain amount
 void fill_column(int column , int amount) {
 	twi_start();
 	twi_tx(0xE0);	// Display I2C addres + R/W bit
@@ -64,6 +69,7 @@ void fill_column(int column , int amount) {
 	
 }
 
+// Clear the whole board
 void clear_board() {
 	int i;
 	for(i =0; i < 8; i++) {
@@ -72,6 +78,7 @@ void clear_board() {
 	}
 }
 
+// Fill the whole board
 void fill_board() {
 	int i;
 	for ( i = 0; i < 8; i++) {
@@ -80,6 +87,7 @@ void fill_board() {
 	}
 }
 
+// Init the screen needs to be called first
 void twi_init(void)
 {
 	TWSR = 0;
@@ -104,5 +112,4 @@ void twi_init(void)
 	twi_tx(0xE0);	// Display I2C address + R/W bit
 	twi_tx(0x81);	// Display OFF - Blink On
 	twi_stop();
-	clear_board();
 }
